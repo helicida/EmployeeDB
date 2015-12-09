@@ -17,7 +17,7 @@
       270996
     </property>
 
-    <mapping resource="Employee.hbm.xml"/>
+    <mapping resource="Prueba/Employee.hbm.xml"/>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>
