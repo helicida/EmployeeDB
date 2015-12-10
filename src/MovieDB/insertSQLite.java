@@ -14,7 +14,7 @@ public class insertSQLite {
 
             try {
                 Class.forName("org.postgresql.Driver");
-                conexion = DriverManager.getConnection("jdbc:postgresql://172.31.104.79/peliculas", "sergi", "alumne");
+                conexion = DriverManager.getConnection("jdbc:postgresql://" + theMovieDBProject.ip + "/" + theMovieDBProject.database, theMovieDBProject.user, theMovieDBProject.password);
                 conexion.setAutoCommit(false);
                 stmt = conexion.createStatement();
 
@@ -42,7 +42,7 @@ public class insertSQLite {
 
             try {
                 Class.forName("org.postgresql.Driver");
-                conexion = DriverManager.getConnection("jdbc:postgresql://172.31.104.79/peliculas", "sergi", "alumne");
+                conexion = DriverManager.getConnection("jdbc:postgresql://" + theMovieDBProject.ip + "/" + theMovieDBProject.database, theMovieDBProject.user, theMovieDBProject.password);
                 conexion.setAutoCommit(false);
                 stmt = conexion.createStatement();
 

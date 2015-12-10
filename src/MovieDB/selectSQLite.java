@@ -20,11 +20,11 @@ public class selectSQLite {
             System.out.println("--------------------------");
 
             Class.forName("org.postgresql.Driver");
-            conexion = DriverManager.getConnection("jdbc:postgresql://172.31.104.79/prueba", "sergi", "alumne");
+            conexion = DriverManager.getConnection("jdbc:postgresql://" + theMovieDBProject.ip + "/" + theMovieDBProject.database, theMovieDBProject.user, theMovieDBProject.password);
             conexion.setAutoCommit(false);
 
             stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT ID, TITULO FROM '" + peliculasTabla + "';");
+            ResultSet rs = stmt.executeQuery("SELECT ID, TITULO FROM " + peliculasTabla + ";");
 
             while(rs.next()) {
                 int idAPI = rs.getInt("ID");
@@ -53,11 +53,11 @@ public class selectSQLite {
             System.out.println("--------------------------");
 
             Class.forName("org.postgresql.Driver");
-            conexion = DriverManager.getConnection("jdbc:postgresql://172.31.104.79/peliculas", "sergi", "alumne");
+            conexion = DriverManager.getConnection("jdbc:postgresql://" + theMovieDBProject.ip + "/" + theMovieDBProject.database, theMovieDBProject.user, theMovieDBProject.password);
             conexion.setAutoCommit(false);
 
             stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT DISTINCT ID_ACTOR, NOMBRE FROM " + actoresTabla);
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT ID_ACTOR, NOMBRE FROM " + actoresTabla);
 
             while(rs.next()) {
                 int id = rs.getInt("ID_ACTOR");
@@ -84,30 +84,37 @@ public class selectSQLite {
 
         try{
             Class.forName("org.postgresql.Driver");
-            conexion = DriverManager.getConnection("jdbc:postgresql://172.31.104.79/peliculas", "sergi", "alumne");
+            conexion = DriverManager.getConnection("jdbc:postgresql://" + theMovieDBProject.ip + "/" + theMovieDBProject.database, theMovieDBProject.user, theMovieDBProject.password);
             conexion.setAutoCommit(false);
 
             stmt = conexion.createStatement();
-			
-			ResultSet rs = stmt.executeQuery( "SELECT * "
-                    + "FROM '" + peliculasTabla + "' as peliculas, '" + actoresTabla +"' as actores "
-                    + "WHERE peliculas.ID = actores.ID_PELICULA "
-                    + "AND peliculas.ID = " + id);
 
-            String titulo = rs.getString("TITULO");
-            String fecha = rs.getString("FECHA");
+            ResultSet rs = stmt.executeQuery( "SELECT * "
+                    + "FROM " + peliculasTabla + " as peliculas, " + actoresTabla + " as actores "
+                    + "WHERE peliculas.id = actores.id_pelicula "
+                    + "AND peliculas.id = " + id);
 
-            // Imprimimos en pantalla la pelicula con la fecha y sus personajes
-
-            System.out.println("--------------------------------------");
-            System.out.println("---- " + titulo + " | " + fecha + " ----");
-            System.out.println("--------------------------------------");
-            System.out.println("--            PERSONAJES            --");
-            System.out.println("--------------------------------------");
+            int contador = 0;
 
             while(rs.next()){   // Mientras haya algo de los resultados que leer
+
+                if(contador == 0){
+                    String titulo = rs.getString("TITULO");
+                    String fecha = rs.getString("FECHA");
+
+                    // Imprimimos en pantalla la pelicula con la fecha y sus personajes
+
+                    System.out.println("--------------------------------------");
+                    System.out.println("---- " + titulo + " | " + fecha + " ----");
+                    System.out.println("--------------------------------------");
+                    System.out.println("--            PERSONAJES            --");
+                    System.out.println("--------------------------------------");
+                }
+
                 String personaje = rs.getString("PERSONAJE");   // Extraemos el personaje
                 System.out.println(" - " + personaje);  // Y lo imprimimos en forma de lista
+
+                contador++;
             }
 
             rs.close();
@@ -128,19 +135,26 @@ public class selectSQLite {
 
         try{
             Class.forName("org.postgresql.Driver");
-            conexion = DriverManager.getConnection("jdbc:postgresql://172.31.104.79/peliculas", "sergi", "alumne");
+            conexion = DriverManager.getConnection("jdbc:postgresql://" + theMovieDBProject.ip + "/" + theMovieDBProject.database, theMovieDBProject.user, theMovieDBProject.password);
             conexion.setAutoCommit(false);
             stmt = conexion.createStatement();
 
             ResultSet rs = stmt.executeQuery( "SELECT NOMBRE, TITULO "
-                    + "FROM '" + peliculasTabla + "' as peliculas, '" + actoresTabla + "' as actores "
+                    + "FROM " + peliculasTabla + " as peliculas, " + actoresTabla + " as actores "
                     + "WHERE peliculas.ID = actores.ID_PELICULA "
                     + "AND actores.ID_ACTOR = " + id);
 
-            System.out.println("\n Peliculas del actor '" + rs.getString("NOMBRE") + "':");
-            System.out.println("--------------------------------");
+            int contador = 0;
 
             while(rs.next()) {
+
+                if(contador == 0){
+                    System.out.println("\n Peliculas del actor '" + rs.getString("NOMBRE") + "':");
+                    System.out.println("--------------------------------");
+                }
+
+                contador++;
+
                 String titulo = rs.getString("TITULO");
                 System.out.println("- " + titulo);
             }

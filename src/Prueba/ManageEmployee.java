@@ -11,6 +11,9 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import java.lang.ExceptionInInitializerError;import java.lang.Integer;import java.lang.String;import java.lang.System;import java.lang.Throwable;
 
+// su - postgres
+//psql template1
+
 /**
  * Created by Dionis on 22/11/2015.
  */

@@ -19,6 +19,10 @@ public class theMovieDBProject {
     // Nombres de la base de datos y de las tablas
     public static String nombreTPeliculas = "PELICULAS";
     public static String nombreTActores = "ACTORES";
+    public static String ip = "172.31.104.79";
+    public static String database = "peliculas";
+    public static String user = "sergi";
+    public static String password = "alumne";
 
     // Iteradores e identificadores de los actores, peliculas
     public static int idPeliculas = 801;    // A partir de que ID de las pelliculas vamos a leer
